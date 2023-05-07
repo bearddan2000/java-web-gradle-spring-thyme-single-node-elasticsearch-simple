@@ -1,0 +1,6 @@
+spring:
+  elasticsearch:
+    rest:
+      uris: "http://elasticsearch:9200"
+      username: "elastic"
+      password: "changeme"

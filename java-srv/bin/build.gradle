@@ -1,0 +1,53 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'boot-gradle'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+    jcenter()
+}
+
+test {
+	systemProperty 'de.adesso.junitinsights.enabled', 'true'
+	systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+    reports {
+        html.enabled = true
+    }
+
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    //dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'org.projectlombok:lombok:1.18.8'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+// unit tests
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+// test - junit5
+    testImplementation platform("org.junit:junit-bom:5.8.1"),
+      "org.junit.vintage:junit-vintage-engine",
+      "org.junit.platform:junit-platform-launcher",
+      "org.junit.jupiter:junit-jupiter-engine"  
+
+	testImplementation 'de.adesso:junit-insights:1.0.0'
+}
